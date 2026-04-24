@@ -10,8 +10,6 @@ All resources are openly available via Zenodo:
 - **Dataset:** [DOI: 10.5281/zenodo.19727667](https://doi.org/10.5281/zenodo.19727667)
 - **Inference Weights:** [DOI: 10.5281/zenodo.19731143](https://doi.org/10.5281/zenodo.19731143)
 
-### Dataset Structure
-
 
 ## ⚙️ Environment Setup
 
@@ -66,6 +64,26 @@ Export the model to ONNX format for deployment:
     --checkpoint output/model_best.pth \
     --output onnx/mango_sparseinst.onnx \
     --opset 13
+
+- Output format:
+  [
+  {
+    "image": "img_101.jpg",
+    "instances": [
+      {
+        "instance_id": 1,
+        "class": "fruit",
+        "bbox": [x1, y1, x2, y2],
+        "confidence": 0.95,
+        "picking_point": {
+          "x": 245.3,
+          "y": 180.7,
+          "confidence": 0.92
+        }
+      }
+    ]
+  }
+]
 
 
 
