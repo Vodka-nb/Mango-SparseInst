@@ -22,6 +22,7 @@ cd Mango-SparseInst
 - PyTorch 1.12+
 - CUDA 11.6+
 - Operating System: Linux (Ubuntu 18.04 / 20.04)
+- detectron2: https://detectron2-zhcn.readthedocs.io/zh-cn/latest/tutorials/install.html
 
 ## 🚀 Quick Start
 
