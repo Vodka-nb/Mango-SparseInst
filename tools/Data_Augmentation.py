@@ -15,9 +15,9 @@ from tqdm import tqdm
 # ========== 配置区 ==========
 class Config:
     # 输入输出路径
-    image_dir = "/home/liweijia/Data/Mango_1300_V3/train/images"
-    json_dir = "/home/liweijia/Data/Mango_1300_V3/train/annotations"
-    dest_dir = "/home/liweijia/Data/Mango_1300_V3_Aug/train"
+    image_dir = "/home/xxx/Data/Mango_1300_V3/train/images"
+    json_dir = "/home/xxx/Data/Mango_1300_V3/train/annotations"
+    dest_dir = "/home/xxx/Data/Mango_1300_V3_Aug/train"
 
     # 增强参数
     augmentation_times = 7  # 每张图生成的增强版本数（不含原始图）
