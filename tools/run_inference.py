@@ -3,10 +3,10 @@ import os
 
 # 参数配置（根据实际路径修改）
 demo_script = "../demo.py"
-config_file = "/home/liweijia/SparseInst/result/Mango_1300_sparse_ultra/config.yaml"
-input_path = "/home/liweijia/SparseInst/Mango_1300_COCO/test/images/*.jpg"  # 支持通配符匹配多张图片<a target="_blank" href="https://www.cnblogs.com/god-of-death/p/18559484" class="hitref" data-title="yolo --- 快速上手 - 流水灯 - 博客园" data-snippet='yolo 任务名称 model=本地模型权重路径 source=图片路径 yolo predict model=yolo11n.pt source=&#39;https://ultralytics.com/images/bus.jpg&#39; 运行方式 - Python 脚本 模型训...' data-url="https://www.cnblogs.com/god-of-death/p/18559484">8</a>
-output_dir = "/home/liweijia/SparseInst/Plot/inference_test"
-model_weights = "/home/liweijia/SparseInst/result/Mango_1300_sparse_ultra/model_final.pth"
+config_file = "/home/xxxx/SparseInst/result/Mango_1300_sparse_ultra/config.yaml"
+input_path = "/home/xxxx/SparseInst/Mango_1300_COCO/test/images/*.jpg"  # 支持通配符匹配多张图片<a target="_blank" href="https://www.cnblogs.com/god-of-death/p/18559484" class="hitref" data-title="yolo --- 快速上手 - 流水灯 - 博客园" data-snippet='yolo 任务名称 model=本地模型权重路径 source=图片路径 yolo predict model=yolo11n.pt source=&#39;https://ultralytics.com/images/bus.jpg&#39; 运行方式 - Python 脚本 模型训...' data-url="https://www.cnblogs.com/god-of-death/p/18559484">8</a>
+output_dir = "/home/xxxx/SparseInst/Plot/inference_test"
+model_weights = "/home/xxxx/SparseInst/result/Mango_1300_sparse_ultra/model_final.pth"
 min_size_test = 512  # 输入图像的最小尺寸<a target="_blank" href="https://www.cnblogs.com/god-of-death/p/18559484" class="hitref" data-title="yolo --- 快速上手 - 流水灯 - 博客园" data-snippet='yolo 任务名称 model=本地模型权重路径 source=图片路径 yolo predict model=yolo11n.pt source=&#39;https://ultralytics.com/images/bus.jpg&#39; 运行方式 - Python 脚本 模型训...' data-url="https://www.cnblogs.com/god-of-death/p/18559484">8</a>
 
 # 创建输出目录（若不存在）
