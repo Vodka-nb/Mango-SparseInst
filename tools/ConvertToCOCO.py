@@ -5,9 +5,9 @@ import shutil
 from PIL import Image
 
 # 设置原始数据目录
-data_images_dir = '/home/liweijia/Data/Mango_Group_Aug/images'
-data_annotations_dir = '/home/liweijia/Data/Mango_Group_Aug/labels/json'
-output_dir = '/home/liweijia/Data/MangoGroup_Augmented_Data_split'
+data_images_dir = '/home/xxx/Data/Mango_Group_Aug/images'
+data_annotations_dir = '/home/xxx/Data/Mango_Group_Aug/labels/json'
+output_dir = '/home/xxx/Data/MangoGroup_Augmented_Data_split'
 
 # 数据集划分比例 (train:val:test = 8:1:1)
 split_ratios = {'train': 0.8, 'val': 0.1, 'test': 0.1}
