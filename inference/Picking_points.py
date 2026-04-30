@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-RF-DETR 荔枝采摘点推理脚本（FPEA高召回精准定位版 v3）
-优化项：
+采摘点推理脚本（FPEA高召回精准定位版 v3）
 1. 投票机制：分叉点只选得分最高（被经过次数最多），不考虑Y坐标
 2. 分叉检测：严格识别"倒Y型"分叉（上方1支 + 下方左右各1支）
 3. 水平居中：采摘点确定后，强制调整至该行主干枝的水平中心
@@ -21,7 +20,7 @@ from collections import defaultdict
 from rfdetr import RFDETRSegNano
 
 # ================= 配置区域 =================
-CHECKPOINT_PATH = "/home/xxx/Litchi/RF-DETR/output/checkpoint_best_ema.pth"
+CHECKPOINT_PATH = "/home/xxx/Litchi/model/output/checkpoint_best_ema.pth"
 TEST_IMAGE_DIR  = "/home/xxx/Data/litchi_coco_rf_detr/test"
 OUTPUT_DIR      = "./litchi_harvest_results"
 
@@ -69,7 +68,7 @@ def get_horizontal_width(mask, pt):
     return rx - lx + 1
 
 def snap_to_horizontal_center(mask, pt):
-    """✅ 核心修改3：将点调整至该行的水平中心（宽度中点）"""
+    """将点调整至该行的水平中心（宽度中点）"""
     x, y = pt
     h, w = mask.shape
     if not (0 <= y < h):
@@ -150,7 +149,7 @@ def trace_branch_direction(skel, x, y, dx_dir, dy_dir, max_len=BRANCH_TRACE_LEN)
 
 def find_inverted_y_junctions(skel):
     """
-    ✅ 核心修改2：严格识别"倒Y型"分叉点
+    严格识别"倒Y型"分叉点
     特征：上方1个分支 + 左下方1个分支 + 右下方1个分支
     """
     h, w = skel.shape
@@ -185,7 +184,7 @@ def find_inverted_y_junctions(skel):
 
 def vote_junctions_upward(skel, fruit_centers, valid_juncs):
     """
-    ✅ 核心修改1：多果实向上投票，只选得分最高（不考虑Y坐标）
+    多果实向上投票，只选得分最高（不考虑Y坐标）
     """
     h, w = skel.shape
     junc_set = set(valid_juncs) if valid_juncs else set()
@@ -211,7 +210,7 @@ def vote_junctions_upward(skel, fruit_centers, valid_juncs):
             if curr in visited: break
             visited.add(curr)
             if curr in junc_set:
-                scores[curr] += 1  # ✅ 每经过一次+1分
+                scores[curr] += 1  # 每经过一次+1分
             nxt = None
             for dx, dy in trace_dirs:
                 nx, ny = curr[0]+dx, curr[1]+dy
@@ -221,7 +220,7 @@ def vote_junctions_upward(skel, fruit_centers, valid_juncs):
             else: break
     
     if scores:
-        # ✅ 核心修改：直接返回得分最高的节点（被经过次数最多）
+        # 直接返回得分最高的节点（被经过次数最多）
         return max(scores, key=scores.get)
     
     # 无分叉点时：返回果实最近骨架点作为备选
@@ -301,7 +300,7 @@ def guaranteed_fallback(comp_mask, skel, fruit_pt, junction=None):
         if not strict_mask_check(comp_mask, pt): continue
         width = get_horizontal_width(comp_mask, pt)
         if width > 60: continue
-        # ✅ 应用水平居中
+        # 应用水平居中
         final = snap_to_horizontal_center(comp_mask, pt)
         if strict_mask_check(comp_mask, final):
             return final
@@ -381,7 +380,7 @@ def process_image(img_path, model, out_dirs):
         
         pick_pt = None
         
-        # === 1. ✅ 倒Y型分叉检测 + 投票选起点（只选最高分）===
+        # === 倒Y型分叉检测 + 投票选起点（只选最高分）===
         valid_juncs = find_inverted_y_junctions(skel)
         junction = vote_junctions_upward(skel, fruit_centers, valid_juncs)
         
@@ -413,9 +412,9 @@ def process_image(img_path, model, out_dirs):
         if pick_pt is None or not strict_mask_check(comp, pick_pt):
             pick_pt = guaranteed_fallback(comp, skel, fruit_pt, junction)
         
-        # === 4. ✅ 强制水平居中 + 输出校验 ===
+        # === 4. 强制水平居中 + 输出校验 ===
         if pick_pt and strict_mask_check(comp, pick_pt):
-            # ✅ 最终确保水平居中
+            # 最终确保水平居中
             pick_pt = snap_to_horizontal_center(comp, pick_pt)
             
             results.append({"x": int(pick_pt[0]), "y": int(pick_pt[1])})
@@ -435,7 +434,7 @@ def process_image(img_path, model, out_dirs):
     return results
 
 def main():
-    print(f"[INFO] Loading RF-DETR: {CHECKPOINT_PATH} | Device: {DEVICE}")
+    print(f"[INFO] Loading model: {CHECKPOINT_PATH} | Device: {DEVICE}")
     model = RFDETRSegNano(pretrain_weights=CHECKPOINT_PATH)
     for d in FOLDERS.values(): os.makedirs(d, exist_ok=True)
     imgs = sorted(list(Path(TEST_IMAGE_DIR).glob('*.jpg')) + list(Path(TEST_IMAGE_DIR).glob('*.png')))
