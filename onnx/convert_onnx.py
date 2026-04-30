@@ -159,11 +159,11 @@ def register_linspace_force(logger=None):
 
 def main():
     parser = argparse.ArgumentParser(description="Export model to the onnx format")
-    parser.add_argument("--config-file", default="/home/liweijia/SparseInst/configs/Mango-sparseinst.yaml", metavar="FILE", help="path to config file")
+    parser.add_argument("--config-file", default="/home/xxxx/SparseInst/configs/Mango-sparseinst.yaml", metavar="FILE", help="path to config file")
     parser.add_argument('--width', default=640, type=int)
     parser.add_argument('--height', default=640, type=int)
     parser.add_argument('--level', default=0, type=int)
-    parser.add_argument("--output", default="/home/liweijia/SparseInst/result", metavar="FILE", help="path to the output onnx file")
+    parser.add_argument("--output", default="/home/xxxx/SparseInst/result", metavar="FILE", help="path to the output onnx file")
     parser.add_argument("--opts", help="Modify config options using the command-line 'KEY VALUE' pairs", default=[], nargs=argparse.REMAINDER)
 
     args = parser.parse_args()
